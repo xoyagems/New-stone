@@ -1,0 +1,37 @@
+workflows:
+  android-build:
+    name: Android Build (easy mode)
+    max_build_duration: 30
+    environment:
+      vars:
+        OPENAI_API_KEY: $OPENAI_API_KEY
+        FIREBASE_API_KEY: $FIREBASE_API_KEY
+        FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID
+      node: latest
+    scripts:
+      - name: Unzip seeder (if present)
+        script: unzip firestore-seeder.zip -d scripts || true
+      - name: Move service account into scripts (if uploaded at repo root)
+        script: |
+          if [ -f serviceAccount.json ]; then
+            mv serviceAccount.json scripts/serviceAccount.json || true
+          fi
+      - name: Install Node deps for seeder
+        script: |
+          cd scripts || true
+          npm install firebase-admin || true
+      - name: Seed Firestore
+        script: |
+          cd scripts || true
+          node seed_firestore.js || true
+      - name: Unzip Android project
+        script: unzip stone-export-app.zip -d project && cd project && ls -la
+      - name: Move google-services.json into project (if uploaded at repo root)
+        script: |
+          if [ -f google-services.json ]; then
+            mv google-services.json project/app/google-services.json || true
+          fi
+      - name: Build debug APK
+        script: cd project && ./gradlew assembleDebug
+    artifacts:
+      - project/app/build/outputs/apk/debug/*.apk
