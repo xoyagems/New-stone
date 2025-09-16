@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555138938524",
+    "project_id": "stone-export-app",
+    "storage_bucket": "stone-export-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555138938524:android:0145ce1dcdcfeb30461f59",
+        "android_client_info": {
+          "package_name": "com.company.stoneexport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6SAQGYtfEsfEcPu4mAN4j_7KAEYMyzoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
